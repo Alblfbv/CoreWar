@@ -6,11 +6,13 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/24 13:42:54 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/05/28 19:24:02 by mnishimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+//maybe delete the description part?
+//
 
 t_op    op_tab[17] =
 {

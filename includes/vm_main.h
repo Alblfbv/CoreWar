@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_main.c                                          :+:      :+:    :+:   */
+/*   vm_main.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/27 19:45:05 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/05/29 09:46:57 by mndhlovu         ###   ########.fr       */
+/*   Created: 2019/05/29 12:05:47 by mndhlovu          #+#    #+#             */
+/*   Updated: 2019/05/29 17:46:00 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int				main(int ac, char **av)
-{
-	int			fd;
-	int			ret;
-	int			index;
-	char		buff[4028];
-	
-	index = 0;
-	fd = open(av[1], O_RDONLY, 0);
-	ret = lseek(fd, 128, SEEK_SET);
-	printf("ret fseek: %d\n", ret);
-	while(read(fd, buff, 4000))
-		index++;
-	printf("index: %d\n", index);
-	index = 0;
-	printf("%x \n", buff[0])
-	return (0);
-}
+#ifndef VM_MAIN_H
+# define VM_MAIN_H
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft.h"
+# include "op.h"
+# include "vm_utils.h"
 
 
+
+
+#endif

@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_main.c                                          :+:      :+:    :+:   */
+/*   vm_basic_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/27 19:45:05 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/05/29 09:46:57 by mndhlovu         ###   ########.fr       */
+/*   Created: 2019/05/29 18:32:37 by mndhlovu          #+#    #+#             */
+/*   Updated: 2019/05/29 20:05:50 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "vm_utils.h"
 
-int				main(int ac, char **av)
+int					vm_opt_getval(char *sval)
 {
-	int			fd;
-	int			ret;
-	int			index;
-	char		buff[4028];
-	
-	index = 0;
-	fd = open(av[1], O_RDONLY, 0);
-	ret = lseek(fd, 128, SEEK_SET);
-	printf("ret fseek: %d\n", ret);
-	while(read(fd, buff, 4000))
-		index++;
-	printf("index: %d\n", index);
-	index = 0;
-	printf("%x \n", buff[0])
-	return (0);
+	int				ret;
+
+	if (ft_strlen(sval) > 0 && ft_strlen(sval) <= 10)
+	{
+		ret = ft_atoi(sval);
+		if (ret < 0)
+			return (-1);
+		return (ret);
+	}
+	return (-1);
 }
-
-
