@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_main.c                                          :+:      :+:    :+:   */
+/*   vm_parser_model.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/27 19:45:05 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/05/29 09:46:57 by mndhlovu         ###   ########.fr       */
+/*   Created: 2019/05/30 13:34:26 by mndhlovu          #+#    #+#             */
+/*   Updated: 2019/05/30 13:34:27 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "corewar.h"
 
-int				main(int ac, char **av)
+t_ull               vm_get_value(char *sval)
 {
-	int			fd;
-	int			ret;
-	int			index;
-	char		buff[4028];
-	
-	index = 0;
-	fd = open(av[1], O_RDONLY, 0);
-	ret = lseek(fd, 128, SEEK_SET);
-	printf("ret fseek: %d\n", ret);
-	while(read(fd, buff, 4000))
-		index++;
-	printf("index: %d\n", index);
-	index = 0;
-	printf("%x \n", buff[0])
-	return (0);
+    t_ull            value;
+
+    if (!sval || !ft_isnumeric(sval))
+        return (-1);
+    value = ft_atoill(sval);
+    if (ft_validInt(value) && value > 0)
+        return (value);
+    return (-1);
 }
-
-

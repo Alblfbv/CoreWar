@@ -6,7 +6,7 @@
 #    By: mndhlovu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 16:48:32 by mndhlovu          #+#    #+#              #
-#    Updated: 2019/03/25 17:00:53 by mndhlovu         ###   ########.fr        #
+#    Updated: 2019/05/30 09:24:53 by mndhlovu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = libft.a
 MAKEFLAGS	+=	--no-print-directory
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g -O0 -fsanitize=address
 
 LIBDIR = 
 SRCDIR = srcs
@@ -29,6 +29,7 @@ SRC = list_utils/ft_lstadd.c list_utils/ft_lstdel.c list_utils/ft_lstdelone.c \
 	  basic_utils/ft_isdigit.c basic_utils/ft_isprint.c basic_utils/ft_putchar_fd.c \
 	  basic_utils/ft_putchar.c basic_utils/ft_putendl_fd.c basic_utils/ft_putnbr_fd.c \
 	  basic_utils/ft_putnbr.c basic_utils/ft_putstr_fd.c basic_utils/ft_putstr.c \
+	  basic_utils/ft_isnumeric.c basic_utils/ft_atoill.c basic_utils/ft_validInt.c \
 	  \
 	  memory_utils/ft_bzero.c memory_utils/ft_memalloc.c memory_utils/ft_memchr.c \
 	  memory_utils/ft_memccpy.c memory_utils/ft_memcmp.c memory_utils/ft_memcpy.c \

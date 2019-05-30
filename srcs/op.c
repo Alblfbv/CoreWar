@@ -6,11 +6,12 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/28 19:24:02 by mnishimo         ###   ########.fr       */
+/*   Updated: 2019/05/30 11:51:00 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include "corewar.h"
 //maybe delete the description part?
 //
 

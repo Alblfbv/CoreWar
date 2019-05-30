@@ -6,7 +6,7 @@
 /*   By: mndhlovu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 13:13:47 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/05/27 15:37:22 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/05/30 09:23:47 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <limits.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
 
@@ -52,11 +53,14 @@ int						ft_isalpha(int c);
 int						ft_isalnum(int c);
 int						ft_isascii(int c);
 int						ft_isspace(int c);
+int						ft_isnumeric(char *str);
 int						ft_toupper(int c);
 int						ft_isprint(int c);
 int						ft_tolower(int c);
+int             		ft_validInt(unsigned long long number);
 int						ft_getline(int fd, char **line);
 int						ft_atoi(const char *str);
+unsigned long long int  ft_atoill(const char *str);
 void					*ft_memalloc(size_t size);
 void					ft_memdel(void **ap);
 char					*ft_strnew(size_t size);

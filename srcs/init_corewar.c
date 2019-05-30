@@ -6,7 +6,7 @@
 /*   By: mnishimo <mnishimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 18:18:54 by mnishimo          #+#    #+#             */
-/*   Updated: 2019/05/27 22:24:45 by mnishimo         ###   ########.fr       */
+/*   Updated: 2019/05/30 11:55:20 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,47 @@
 //read and update arg ptr
 //if it doesn't exist return av+1
 //if error return NULL
-static char	**get_options(char **av)
+//
+
+static int			vm_get_options(int ac, char **av, t_game *game)
 {
-	char	**arg;
-	arg = av + 1;
+	int				ret;
+
+	vm_init_flags(game);
+	if (!(ret = vm_opt_reader(ac, av, game)))
+		return (0);
+	while (ret < ac)
+	{
+		ft_printf("%s \n", av[ret++]);
+		ret++;
+	}
+	return (0);
 }
 
 //creates process
-t_process	init_prcs(int id, t_uc *pc)
-{
+// t_process	init_prcs(int id, t_uc *pc)
+// {
 
-}
+// }
 
-//malloc all the champs and copy the instructions into memdump
-//create the first prcs then store them in game->prcs
-static int	read_champs(t_game *game, char **arg)
-{
-	t_champ	*tmp;
-	int		nbr_champs;
-}
+// //malloc all the champs and copy the instructions into memdump
+// //create the first prcs then store them in game->prcs
+// static int	read_champs(t_game *game, char **arg)
+// {
+// 	t_champ	*tmp;
+// 	int		nbr_champs;
+// }
 
 //read all the options, store champs, init game and read infos
 //if error, return 0
-int			init_corewar(t_game *game, int ac, char **av)
+int				vm_init_corewar(t_game *game, int ac, char **av)
 {
-	char	**arg;
+	//char	**arg;
 
 	//bzero everything
-	if (ac < 2 || !(arg = get_options(av)))
+	if (ac < 2 || !(vm_get_options(ac, av, game)))
 		return (0);
-	if (!read_champs(game, arg))
-		return (0);
+	//if (!read_champs(game, arg))
+	//	return (0);
+	return (1);
 }
