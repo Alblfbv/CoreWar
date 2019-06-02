@@ -14,5 +14,12 @@
 
 int             ft_validInt(unsigned long long number)
 {
-    return ((number > (unsigned long long)INT_MIN && number < (unsigned long long)INT_MAX) ? 1 : 0);
+    unsigned long long min;
+    unsigned long long max;
+
+    min = (unsigned long long)INT_MIN;
+    max = (unsigned long long)INT_MAX;
+    if (number > min && number < max)
+        return (1);
+    return (0);
 }

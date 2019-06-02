@@ -12,106 +12,91 @@
 
 #include "corewar.h"
 
-t_option                g_options[6] = {
-    {"-dump", vm_opt_dump}, {"-n", vm_opt_n}, {"-d", vm_opt_dump}
-    , {"-debug", vm_opt_debug}, {"-a", vm_opt_aff}, {"-s", vm_opt_soption}};
+t_option                g_options[] = {
+    {"-n", vm_opt_n}, {"-d", vm_opt_dump}
+    , {"-de", vm_opt_debug}, {"-a", vm_opt_aff}, {"-s", vm_opt_soption}};
 
-int                     vm_opt_dump(int ac, int index, char *av, t_game *game)
+int                     vm_opt_dump(int count
+                , char **av, t_game *game)
 {
     t_ull               value;
 
-    if (index < ac && *av + 1)
+    if (av[count + 1] && !game->d_state)
     {
-        if ((value = vm_get_value(av[index + 1])) == (t_ull) -1)
-            return (-1);
-        if (!game->flags.d_state)
-        {
-            game->flags.d_state = '1';
-            game->nbr_cycle = value;
-        }
+        if ((value = vm_get_value(av[count + 1])) == (t_ull) -1)
+            return (0);
+        game->d_state = 1;
+        game->nbr_cycle = value;
     }
-    return (index + 2);
+    return (1);
 }
 
-int                     vm_opt_soption(int ac, int index, char **av, t_game *game)
+int                     vm_opt_soption(int count, char **av, t_game *game)
 {
     t_ull               value;
 
-    if (index < ac && av[index + 1])
+    if (av[count + 1] && !game->s_state)
     {
-        if ((value = vm_get_value(av[index + 1])) == (t_ull) -1)
-            return (-1);
-        if (!game->flags.s_state)
-        {
-            game->flags.s_state = 1;
-            game->nbr_s_cycle = value;
-        }
+        if ((value = vm_get_value(av[count + 1])) == (t_ull) -1)
+            return (0);
+        ft_printf("S flag present\n");
+        game->s_state = 1;
+        game->nbr_s_cycle = value;
     }
-    return (index + 2);
+    return (1);
 }
 
 
-int                     vm_opt_n(int ac, int index, char **av, t_game *game)
+int                     vm_opt_n(int count
+                , char **av, t_game *game)
 {
     t_ull               value;
 
-    if (index < ac && av[index + 1])
+    if (!game->n_state && av[count + 1])
     {
-        if ((value = vm_get_value(av[index + 1])) == (t_ull) -1)
-            return (-1);
-        if (!game->flags.n_state)
-        {
-            game->flags.n_state = 1;
-            game->n_prog_num = value;
-        }
+        if ((value = vm_get_value(av[count + 1])) == (t_ull) -1)
+            return (0);
+        ft_printf("N flag present\n");
+        game->n_state = 1;
+        game->n_prog_num = value;
     }
-    return (index + 2);
+    return (1);
 }
 
-int                     vm_opt_debug(int ac, int index, char **av, t_game *game)
+int                     vm_opt_debug(int count
+                , char **av, t_game *game)
 {
-    if (index < ac)
-    {
-        ft_printf("error %s \n", av[index]);
-        if (!game->flags.deb_state)
-            game->flags.deb_state = 1;
-    }
-    return (index++);
+    if (av[count] && !game->deb_state)
+         game->deb_state = 1;
+    return (1);
 }
 
-int                     vm_opt_aff(int ac, int index, char **av, t_game *game)
+int                     vm_opt_aff(int count
+                , char **av, t_game *game)
 {
-
-    if (index < ac)
-    {
-         ft_printf("error %s \n", av[index]);
-        if (!game->flags.a_state)
-            game->flags.a_state = 1;
-    }
-    return (index++);
+    if (av[count] && !game->a_state)
+         game->a_state = 1;
+    return (1);
 }
 
-int                    vm_opt_reader(int ac, char **av, t_game *game)
+int                     vm_opt_reader(int ac, char **av, t_game *game)
 {
     int                 index;
     int                 count;
-    int                 cou;
 
     index = 0;
     count = 1;
-    game->nbr_cycle = 1;
-    while (index < 6 && count < ac)
+    while (index < (int)(sizeof(g_options) / sizeof(g_options[0]))
+                    && count < ac)
     {
-        //ft_printf("Bingo %s\n", av[count++]);
-        if (!(ft_strcmp(av[count], g_options[index].option)))
+        ft_printf("opt reader: %s\nchecker: %d\n", av[count], ft_strcmp(av[count], g_options[index].option));
+        if (!ft_strcmp(av[count], g_options[index].option))
         {
-            cou = g_options[index].f(ac, count, av[count], game);
-            // if (count == -1)
-            //     vm_opt_error(av[count], game);
-            ft_printf("cou %d\n", cou);
-            ft_printf("Bingo %s\n", av[count++]);
+            if (!g_options[index].f(count, av, game))
+                return (vm_catch_error(OPT_ERROR, av[index]));
         }
         index++;
+        count++;
     }
-    return (count);
+    return (1);
 }

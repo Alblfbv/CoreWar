@@ -14,22 +14,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int				vm_is_little_endian(unsigned int value)
-{
-	char				*temp;
-
-	temp = (char*)&value;
-	return ((*temp) ? 1 : 0);
-}
-
-unsigned int			vm_endian_conversion(unsigned int value)
-{
-	return (((value>>24) & 0x0ff)
-			| ((value<<8) & 0xff0000)
-			| ((value>>8) & 0xff00)
-			| ((value<<24) & 0xff000000));
-}
-
 int						main(int ac, char **av)
 {
 	int					fd;

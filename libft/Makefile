@@ -46,7 +46,7 @@ SRC = list_utils/ft_lstadd.c list_utils/ft_lstdel.c list_utils/ft_lstdelone.c \
 	  str_utils/ft_strncpy.c str_utils/ft_strnequ.c str_utils/ft_strnew.c \
 	  str_utils/ft_strnstr.c str_utils/ft_strrchr.c str_utils/ft_strsplit.c \
 	  str_utils/ft_strstr.c str_utils/ft_strsub.c str_utils/ft_strtrim.c \
-	  str_utils/ft_tolower.c str_utils/ft_toupper.c \
+	  str_utils/ft_tolower.c str_utils/ft_toupper.c str_utils/ft_strrev.c \
 	  gnl/get_next_line.c \
 	  \
 	  ft_printf/ft_base_utils.c ft_printf/ft_float_handlers.c ft_printf/ft_gen_utils.c \

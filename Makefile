@@ -19,7 +19,8 @@ INCDIR = includes \
 		 libft/includes
 
 SRC = vm_mem_utils.c vm_parser_model.c vm_option_utils.c\
-	  main.c init_corewar.c
+	  main.c init_corewar.c vm_error_utils.c vm_file_reader.c \
+	  vm_primary_parser.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -56,7 +57,7 @@ $(OBJDIR)	:
 		@mkdir -p $(OBJDIR)
 
 $(NAME)	:	$(OBJP)
-		@echo -e "$(YEL)===> $(GRE)$(NAME) : $(YEL) LEM-IN COMPILATION <===$(DEF)"
+		@echo -e "$(YEL)===> $(GRE)$(NAME) : $(YEL) COREWAR COMPILATION <===$(DEF)"
 		$(CC) $(FLAGS) -o $@ $^ $(INCP) $(LIBP) $(LLIBP)
 
 #	Cleaner rules

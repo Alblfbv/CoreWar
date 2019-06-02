@@ -44,6 +44,7 @@ size_t					ft_strlcat(char *dest, const char *src, size_t size);
 char					*ft_strchr(const char *s, int c);
 char					*ft_strdup(const char *s1);
 char					*ft_strrchr(const char *s, int c);
+char					*ft_strrev(char *str);
 char					*ft_strstr(const char *str, const char *to_find);
 char					*ft_strnstr(const char *s1, const char *s2, size_t len);
 int						ft_strcmp(const char *s1, const char *s2);

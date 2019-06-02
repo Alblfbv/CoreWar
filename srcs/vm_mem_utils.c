@@ -22,34 +22,12 @@ void            vm_init_flags(t_game *game)
     game->cycle_d = 0;
     game->c_checked = 0;
     game->cycle_to_die = 0;
-    game->flags.d_state = 0;
-    game->flags.n_state = 0;
-    game->flags.a_state = 0;
-    game->flags.s_state = 0;
-    game->flags.deb_state = 0;
-    game->flags.pl_state = 0;
-    game->error = NULL;
-}
-
-void            vm_opt_error(char *str, t_game *game)
-{
-    t_er_hand   *tmp;
-    t_er_hand   *new;
-
-    if ((new = (t_er_hand *)malloc(sizeof(t_er_hand))))
-        return ;
-    if ((new->error_descr = ft_strnew(ft_strlen(str))))
-        return ;
-    new->error_descr = ft_strdup(str);
-    new->impact = 1;
-    new->next = NULL;
-    if (game->error == NULL)
-        game->error = new;
-    else
-    {
-        tmp = game->error;
-        while(tmp->next)
-            tmp = tmp->next;
-        tmp->next = new;
-    }
+    game->d_state = 0;
+    game->n_state = 0;
+    game->a_state = 0;
+    game->s_state = 0;
+    game->deb_state = 0;
+    game->pl_state = 0;
+    game->pv_number = 0;
+    game->pl_number = 0;
 }
