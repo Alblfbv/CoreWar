@@ -14,7 +14,7 @@
 
 static char const	*g_usage[] =
 {
-	"\nUsage:./corewar -d N -s N -v N -debug -n N] [-a] <champion1.cor> <...>",
+	"Usage:./corewar -d N -s N -v N -debug -n N] [-a] <champion1.cor> <...>",
 	"### CONTESTANT ######################################################",
 	"your_champion.cor: Champion compiled with the asm",
 	"-n N:              Set champion number for the next champion",

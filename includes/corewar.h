@@ -144,12 +144,11 @@ typedef struct	s_game
 	int			s_state;
 	int			a_state;
 	int			pl_state;
-	int			pl_number;
+	t_ull		pl_number;
 	int			deb_state;
 	int			v_state;
 	int			pv_number;
-	int			fl_error;	
-	t_ull		n_prog_num;
+	int			fl_error;
 	t_ull		cycle;
 	t_ull		cycle_d;
 	t_ull		c_checked;

@@ -26,19 +26,19 @@
 
 static int          vm_pri_processor(int pv_number, t_champ *champ, t_game *game)
 {
-    if (game->pl_state && game->pl_number < MAX_PLAYERS)
+    if (game->n_state && game->pl_number < MAX_PLAYERS)
     {
-        champ->id = game->pl_number;
+        champ->id = (int) game->pl_number;
         champ->prcs_c = 0;
         champ->live_c = 0;
-        game->champs[game->pl_number] = *champ;
+        game->champs[(int)game->pl_number] = *champ;
         (game->nbr_champs)++;
-        game->pv_number = game->pl_number;
+        game->pv_number = (int) game->pl_number;
         game->pl_state = 0;
         game->pl_number = 0;
         return (1);
     }
-    if (!game->pl_state)
+    if (!game->n_state)
     {
         champ->id = pv_number + 1;
         champ->prcs_c = 0;
@@ -60,7 +60,6 @@ int                 vm_primary_parser(int fd, t_game *game)
     t_champ         *new;
 
     play_num = game->pv_number;
-    // ft_printf("Bingo number %d\n", play_num);
     if (play_num < MAX_PLAYERS && (play_num + 1 < MAX_PLAYERS))
     {
         if (!(new = (t_champ *)malloc(sizeof(t_champ))))
@@ -68,9 +67,6 @@ int                 vm_primary_parser(int fd, t_game *game)
         if ((read(fd, &magic, sizeof(unsigned int))) < 0)
             return (-2);
         magic = vm_endian_conversion(magic);
-        // if (!(magic = vm_verify_magic(&fd)))
-        //     return (-1);
-        ft_printf("Bingo here %x\n", magic);
         if ((read(fd, new->name, sizeof(unsigned char) * PROG_NAME_LENGTH)) < 0)
             return (-2);
         if ((lseek(fd, 136, SEEK_SET)) < 0)
@@ -90,7 +86,6 @@ int                 vm_primary_parser(int fd, t_game *game)
         new->instr = str;
         if (!vm_pri_processor(play_num, new, game))
         {
-            ft_printf("Bingo number %d\n", play_num);
             //ft_strdel(&str);
             free(new);
             return (-3);

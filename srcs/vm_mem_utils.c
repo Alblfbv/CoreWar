@@ -17,7 +17,6 @@ void            vm_init_flags(t_game *game)
     game->nbr_cycle = 0;
     game->nbr_s_cycle = 0;
     game->nbr_champs = 0;
-    game->n_prog_num = 0;
     game->cycle = 0;
     game->cycle_d = 0;
     game->c_checked = 0;

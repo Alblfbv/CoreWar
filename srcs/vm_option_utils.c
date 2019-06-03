@@ -16,14 +16,14 @@ t_option                g_options[] = {
     {"-n", vm_opt_n}, {"-d", vm_opt_dump}
     , {"-de", vm_opt_debug}, {"-a", vm_opt_aff}, {"-s", vm_opt_soption}};
 
-int                     vm_opt_dump(int count
+int                     vm_opt_dump(int pos
                 , char **av, t_game *game)
 {
     t_ull               value;
 
-    if (av[count + 1] && !game->d_state)
+    if (av[pos + 1] && !game->d_state)
     {
-        if ((value = vm_get_value(av[count + 1])) == (t_ull) -1)
+        if ((value = vm_get_value(av[pos + 1])) == (t_ull) -1)
             return (0);
         game->d_state = 1;
         game->nbr_cycle = value;
@@ -31,15 +31,14 @@ int                     vm_opt_dump(int count
     return (1);
 }
 
-int                     vm_opt_soption(int count, char **av, t_game *game)
+int                     vm_opt_soption(int pos, char **av, t_game *game)
 {
     t_ull               value;
 
-    if (av[count + 1] && !game->s_state)
+    if (av[pos + 1] && !game->s_state)
     {
-        if ((value = vm_get_value(av[count + 1])) == (t_ull) -1)
+        if ((value = vm_get_value(av[pos + 1])) == (t_ull) -1)
             return (0);
-        ft_printf("S flag present\n");
         game->s_state = 1;
         game->nbr_s_cycle = value;
     }
@@ -47,56 +46,50 @@ int                     vm_opt_soption(int count, char **av, t_game *game)
 }
 
 
-int                     vm_opt_n(int count
+int                     vm_opt_n(int pos
                 , char **av, t_game *game)
 {
     t_ull               value;
 
-    if (!game->n_state && av[count + 1])
+    if (!game->n_state && av[pos + 1])
     {
-        if ((value = vm_get_value(av[count + 1])) == (t_ull) -1)
+        if ((value = vm_get_value(av[pos + 1])) == (t_ull) -1)
             return (0);
-        ft_printf("N flag present\n");
         game->n_state = 1;
-        game->n_prog_num = value;
+        game->pl_number = value;
     }
     return (1);
 }
 
-int                     vm_opt_debug(int count
+int                     vm_opt_debug(int pos
                 , char **av, t_game *game)
 {
-    if (av[count] && !game->deb_state)
+    if (av[pos] && !game->deb_state)
          game->deb_state = 1;
     return (1);
 }
 
-int                     vm_opt_aff(int count
+int                     vm_opt_aff(int pos
                 , char **av, t_game *game)
 {
-    if (av[count] && !game->a_state)
+    if (av[pos] && !game->a_state)
          game->a_state = 1;
     return (1);
 }
 
-int                     vm_opt_reader(int ac, char **av, t_game *game)
+int                     vm_opt_reader(int pos, char **av, t_game *game)
 {
     int                 index;
-    int                 count;
 
     index = 0;
-    count = 1;
-    while (index < (int)(sizeof(g_options) / sizeof(g_options[0]))
-                    && count < ac)
+    while (index < (int)(sizeof(g_options) / sizeof(g_options[0])))
     {
-        ft_printf("opt reader: %s\nchecker: %d\n", av[count], ft_strcmp(av[count], g_options[index].option));
-        if (!ft_strcmp(av[count], g_options[index].option))
+        if (!ft_strcmp(av[pos], g_options[index].option))
         {
-            if (!g_options[index].f(count, av, game))
+            if (!g_options[index].f(pos, av, game))
                 return (vm_catch_error(OPT_ERROR, av[index]));
         }
         index++;
-        count++;
     }
     return (1);
 }
