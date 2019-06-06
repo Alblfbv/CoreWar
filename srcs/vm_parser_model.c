@@ -48,7 +48,7 @@ static void         vm_disp_players(t_game *game)
 {
     int             index;
 
-    index = 1;
+    index = 0;
     while (index < game->nbr_champs)
     {
         ft_printf("Player Name: %s\t\tPlayer id: %d\t\tPlayer Comment: %s\n", game->champs[index].name, game->champs[index].id, game->champs[index].comment);

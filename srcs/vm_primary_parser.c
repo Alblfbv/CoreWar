@@ -12,17 +12,16 @@
 
 #include "corewar.h"
 
-// static int          vm_verify_magic(int *fd)
-// {
-//     unsigned char   magic;
+static int          vm_verify_magic(int fd, unsigned int *magic)
+{
 
-//     if ((read(*fd, &magic, sizeof(unsigned int))) < 0)
-//         return (0);
-//     magic = vm_endian_conversion(magic);
-//     // if (magic == COREWAR_EXEC_MAGIC)
-//     //     return (magic);
-//     return (magic);
-// }
+    if ((read(fd, magic, sizeof(unsigned int))) < 0)
+        return (0);
+    *magic = vm_endian_conversion(*magic);
+    // if (magic == COREWAR_EXEC_MAGIC)
+    //     return (magic);
+    return (fd);
+}
 
 static int          vm_pri_processor(int pv_number, t_champ *champ, t_game *game)
 {
@@ -33,17 +32,17 @@ static int          vm_pri_processor(int pv_number, t_champ *champ, t_game *game
         champ->live_c = 0;
         game->champs[(int)game->pl_number] = *champ;
         (game->nbr_champs)++;
-        game->pv_number = (int) game->pl_number;
+        game->pv_number = 1 + (int) game->pl_number;
         game->pl_state = 0;
         game->pl_number = 0;
         return (1);
     }
     if (!game->n_state)
     {
-        champ->id = pv_number + 1;
+        champ->id = pv_number;
         champ->prcs_c = 0;
         champ->live_c = 0;
-        game->champs[pv_number + 1] = *champ;
+        game->champs[pv_number] = *champ;
         (game->nbr_champs)++;
         (game->pv_number)++;
         return (1);
@@ -64,9 +63,7 @@ int                 vm_primary_parser(int fd, t_game *game)
     {
         if (!(new = (t_champ *)malloc(sizeof(t_champ))))
             return (-2);
-        if ((read(fd, &magic, sizeof(unsigned int))) < 0)
-            return (-2);
-        magic = vm_endian_conversion(magic);
+        fd = vm_verify_magic(fd, &magic);
         if ((read(fd, new->name, sizeof(unsigned char) * PROG_NAME_LENGTH)) < 0)
             return (-2);
         if ((lseek(fd, 136, SEEK_SET)) < 0)
@@ -86,7 +83,7 @@ int                 vm_primary_parser(int fd, t_game *game)
         new->instr = str;
         if (!vm_pri_processor(play_num, new, game))
         {
-            //ft_strdel(&str);
+           // ft_strdel(&str);
             free(new);
             return (-3);
         }
