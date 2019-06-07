@@ -18,21 +18,6 @@
 //if error return NULL
 //
 
-static int			vm_get_options(int ac, char **av, t_game *game)
-{
-	int				ret;
-
-	vm_init_flags(game);
-	if (!(ret = vm_opt_reader(ac, av, game)))
-		return (0);
-	while (ret < ac)
-	{
-		ft_printf("%s \n", av[ret++]);
-		ret++;
-	}
-	return (0);
-}
-
 //creates process
 // t_process	init_prcs(int id, t_uc *pc)
 // {

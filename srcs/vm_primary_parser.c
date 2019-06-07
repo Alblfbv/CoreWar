@@ -14,13 +14,12 @@
 
 static int          vm_verify_magic(int fd, unsigned int *magic)
 {
-
     if ((read(fd, magic, sizeof(unsigned int))) < 0)
         return (0);
     *magic = vm_endian_conversion(*magic);
-    // if (magic == COREWAR_EXEC_MAGIC)
-    //     return (magic);
-    return (fd);
+    if (*magic == (unsigned int)COREWAR_EXEC_MAGIC)
+        return (fd);
+    return (0);
 }
 
 static int          vm_pri_processor(int pv_number, t_champ *champ, t_game *game)
@@ -63,7 +62,8 @@ int                 vm_primary_parser(int fd, t_game *game)
     {
         if (!(new = (t_champ *)malloc(sizeof(t_champ))))
             return (-2);
-        fd = vm_verify_magic(fd, &magic);
+        if (!(fd = vm_verify_magic(fd, &magic)))
+            return (-1);
         if ((read(fd, new->name, sizeof(unsigned char) * PROG_NAME_LENGTH)) < 0)
             return (-2);
         if ((lseek(fd, 136, SEEK_SET)) < 0)
@@ -83,11 +83,9 @@ int                 vm_primary_parser(int fd, t_game *game)
         new->instr = str;
         if (!vm_pri_processor(play_num, new, game))
         {
-           // ft_strdel(&str);
             free(new);
             return (-3);
         }
-        //ft_strdel(&str);
         free(new);
         return (1);
     }

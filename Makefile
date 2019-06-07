@@ -19,7 +19,7 @@ INCDIR = includes \
 		 libft/includes
 
 SRC = vm_mem_utils.c vm_parser_model.c vm_option_utils.c\
-	  main.c init_corewar.c vm_error_utils.c vm_file_reader.c \
+	  main.c vm_error_utils.c vm_file_reader.c \
 	  vm_primary_parser.c \
 
 OBJ = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 12:26:30 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/05/29 20:05:44 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/07 02:25:01 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ int						main(int ac, char **av)
 	//magicNum = 0xea83f3;
 	//printf("%d\n", vm_is_little_endian(magic));
 	return (0);
-}
+
+
