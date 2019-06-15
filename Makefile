@@ -12,15 +12,14 @@
 
 NAME = disassembly
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g -O0 -fsanitize=address
+FLAGS = -g -O0 -fsanitize=address -lncurses
 SRCDIR = srcs
 OBJDIR = objs
 INCDIR = includes \
 		 libft/includes
 
-SRC = decode.c free.c dis_error_utils.c\
+SRC = dis_error_utils.c vm_visu_utils.c vm_visu_output.c\
 	  main.c dis_parser_utils.c dis_source_parser.c \
-	  memory_util.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -57,7 +56,7 @@ $(OBJDIR)	:
 		@mkdir -p $(OBJDIR)
 
 $(NAME)	:	$(OBJP)
-		@echo -e "$(YEL)===> $(GRE)$(NAME) : $(YEL) COREWAR COMPILATION <===$(DEF)"
+		@echo -e "$(YEL)===> $(GRE)$(NAME) : $(YEL) DISASSEMBLY COMPILATION <===$(DEF)"
 		$(CC) $(FLAGS) -o $@ $^ $(INCP) $(LIBP) $(LLIBP)
 
 #	Cleaner rules
@@ -85,4 +84,4 @@ PUR		=	\033[35m
 RED		=	\033[31m
 SOU		=	\033[4m
 WHI		=	\033[37m
-YEL		=	\033[33m	
+YEL		=	\033[33m

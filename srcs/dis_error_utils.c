@@ -30,37 +30,37 @@ int                     dis_catch_error(int flag, char *av)
     if (flag == US_ERROR)
     {
         while (index < (int)(sizeof(g_usage) / sizeof(g_usage[0])))
-            ft_printf("%s%s\n", COLOR_GREEN, g_usage[index++]);
+            ft_printf("%s%s\n", CLR_GREEN, g_usage[index++]);
         return (0);
     }
     else if (flag == IO_ERROR)
     {
-        ft_printf("%sCannot read file %s\n", COLOR_RED, av);
+        ft_printf("%sCannot read file %s\n", CLR_RED, av);
         return (0);
     }
     else if (flag == OPT_ERROR)
     {
-        ft_printf("%sError found around the option params of %s\n", COLOR_YEL, av);
+        ft_printf("%sError found around the option params of %s\n", CLR_YEL, av);
         return (0);
     }
     else if (flag == -1)
     {
-        ft_printf("%sInvalid magic number found on one of the players\n", COLOR_RED);
+        ft_printf("%sInvalid magic number found on one of the players\n", CLR_RED);
         return (0);
     }
     else if (flag == -2)
     {
-        ft_printf("%sFile processing and memory allocation failed\n", COLOR_RED);
+        ft_printf("%sFile processing and memory allocation failed\n", CLR_RED);
         return (0);
     }
     else if (flag == -3)
     {
-        ft_printf("%sError while saving player to memory\n", COLOR_RED);
+        ft_printf("%sError while saving player to memory\n", CLR_RED);
         return (0);
     }
     else if (flag == -4)
     {
-        ft_printf("%sPlease adhere to the limit of 4 players\n", COLOR_RED);
+        ft_printf("%sPlease adhere to the limit of 4 players\n", CLR_RED);
         return (0);
     }
     return (1);

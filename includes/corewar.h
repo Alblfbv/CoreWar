@@ -15,6 +15,7 @@
 
 #include "libft.h"
 #include "op.h"
+#include "visu.h"
 #include <unistd.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -24,12 +25,11 @@
 # define OPT_ERROR 2
 # define ML_ERROR 3
 # define US_ERROR 0
-# define COLOR_RED  "\x1b[31m"
-# define COLOR_GREEN  "\x1b[32m"
-# define COLOR_YEL  "\x1b[33m"
-
+# define CLR_RED  "\x1b[31m"
+# define CLR_GREEN  "\x1b[32m"
+# define CLR_YEL  "\x1b[33m"
 typedef	unsigned long long	t_ull;
-typedef	unsigned long long	t_uc;
+typedef	unsigned char	t_uc;
 typedef	uint8_t				t_reg_type;
 typedef uint16_t			t_ind_type;
 typedef uint32_t			t_dir_type;
@@ -44,6 +44,19 @@ typedef struct	s_file
 	char		*file_name;
 }				t_file;
 
+typedef struct		s_champ
+{
+	char			name[PROG_NAME_LENGTH + 1];
+	char			comment[COMMENT_LENGTH + 1];
+	unsigned char	*instr;
+	char			*file_name;
+	int				fd;
+	unsigned int	prog_size;
+	int				col;
+	int			id;
+}				t_champ;
+
+
 typedef struct	s_process
 {
 	int			c_id;
@@ -54,14 +67,6 @@ typedef struct	s_process
 	t_uc		*pc;
 	int			carry;
 }				t_process;
-
-typedef enum	e_argtype
-{
-	// if we want to represent this by 3 bit, change to defined T_DIR/T_IND/T_REG
-	e_reg = T_REG,
-	e_dir = T_DIR,
-	e_ind = T_IND,
-}				t_argtype;
 
 typedef enum	e_argtype
 {
@@ -103,78 +108,88 @@ typedef struct	s_arg
 {
 	t_argtype	type;
 	t_argval	value;
-}				t_arg;
+}				t_arg;	
 
 typedef struct	s_game
 {
 	t_file		*file[MAX_PLAYERS + 1]; // the last ptr is NULL
+	t_champ		*champs[MAX_PLAYERS + 1];
+	t_visu		*visu;
+	int 		visu_state;
+	int 		deb_state;
 	int			nbr_champs;
+	int 		pv_number;
+	int 		pause;
 	int			nbr_fout;
 	int			er_state;
 }				t_game;
 
-typedef struct	s_inst
-{
-	void	*op;
-	t_arg	args[MAX_ARGS_NUMBER];
-}				t_inst;
 
-typedef	void (*t_inst_func)(t_game *, t_process *, t_inst *);
+// typedef struct	s_inst
+// {
+// 	void	*op;
+// 	t_arg	args[MAX_ARGS_NUMBER];
+// }				t_inst;
 
-typedef struct	s_op
-{
-	t_opcode	opcode;
-	int			n_args; //nbr of args
-	int			args[MAX_ARGS_NUMBER];
-	int			wait;
-	int			ocp;
-	int			rstrct; //if %mod should be aplied or not, memory restriction
-	int			carry; //can modify the carry or not
-	int			dir_bytes;
-	t_inst_func	function;
-}				t_op;
+// typedef	void (*t_inst_func)(t_game *, t_process *, t_inst *);
 
-/*
- * decode.c
- * */
-t_uc	*decode(t_uc *dump, t_uc *pc, t_inst *inst);
+// typedef struct	s_op
+// {
+// 	t_opcode	opcode;
+// 	int			n_args; //nbr of args
+// 	int			args[MAX_ARGS_NUMBER];
+// 	int			wait;
+// 	int			ocp;
+// 	int			rstrct; //if %mod should be aplied or not, memory restriction
+// 	int			carry; //can modify the carry or not
+// 	int			dir_bytes;
+// 	t_inst_func	function;
+// }				t_op;
 
 
-/*
- * ocp.c
- * */
-int		decode_ocp(t_uc *addr, t_inst *inst);
+// t_uc	*decode(t_uc *dump, t_uc *pc, t_inst *inst);
 
-/*
- * free.c
- * */
-void	free_game(t_game *game);
 
-/*
- * util.c
- * */
-t_op	*get_op(t_inst *inst);
+// /*
+//  * ocp.c
+//  * */
+// int		decode_ocp(t_uc *addr, t_inst *inst);
 
-/*
- * memory_utils.c
- * */
-t_uc	*access_ptr(t_uc *dump, t_uc *pc, size_t offset);
-void	read_dump(t_uc *dump, t_uc *src, void *dst, size_t size);
-void	write_dump(t_uc *dump, void *src, t_uc *dst, size_t size);
-t_dir_type	*get_arg(t_process *caller, t_uc *dump, t_arg *arg, int rstr);
+// /*
+//  * free.c
+//  * */
+// void	free_game(t_game *game);
+
+// /*
+//  * util.c
+//  * */
+// t_op	*get_op(t_inst *inst);
+// <<<<<<< HEAD
+// =======
+// void	update_logs(t_game *game, char **new, size_t l);
+// void	memcpy_inv(void *dst, void *src, size_t size);
+// void	ft_hexdump(t_uc *dump);
+// >>>>>>> origin/vm
 
 /*
  * lst_util.c
  * */
-void	del_lstprcs(void *cnt, size_t size);
+//void	del_lstprcs(void *cnt, size_t size);
 
-/*
- *	Parser utility functions
- * */
 int                 	dis_source_parser(int fd, char *file, t_game *game);
 int                     dis_catch_error(int flag, char *av);
 int                     dis_file_reader(char *file, t_game *game);
 void                	dis_debug(int flag, int ac, char **av, t_game *game);
 unsigned int			vm_endian_conversion(unsigned int val);
-int                 	dis_source_parser(int fd, t_game *game);
+
+
+
+/*
+ * visu
+*/
+void	end_visu(t_visu *visu);
+int		dis_output(t_game *game, int p_num);
+void	visu_launcher(t_game *game, WINDOW *r, WINDOW *o, WINDOW *m, int p_num);
+void    vm_init_visu(t_game *game, t_visu *visu);
+
 #endif

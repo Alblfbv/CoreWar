@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 04:18:40 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/07 04:18:49 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/14 21:26:26 by lironkei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void          dis_pri_processor(char *file, int pv_number
                 , t_champ *champ, t_game *game)
 {
     champ->file_name = file;
+    champ->col = pv_number;
     game->champs[pv_number] = champ;
     (game->nbr_champs)++;
 }
@@ -58,7 +59,8 @@ int                 dis_source_parser(int fd, char *file, t_game *game)
             return (-2);
         if ((lseek(fd, 2192, SEEK_SET)) < 0)
             return (-2);
-        if ((read(fd, str, sizeof(unsigned char) * prog_size)) < 0)
+        if (((lseek(fd, 2192, SEEK_SET)) < 0)
+                || (read(fd, str, sizeof(unsigned char) * prog_size)) < 0)
             return (-2);
         new->prog_size = prog_size;
         new->instr = str;
