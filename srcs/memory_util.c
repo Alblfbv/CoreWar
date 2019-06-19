@@ -14,7 +14,6 @@
 
 t_uc	*access_ptr(t_uc *dump, t_uc *pc, int offset)
 {
-	//ft_printf("offset = %i\n", offset);
 	while (offset / MEM_SIZE)
 		offset %= MEM_SIZE;
 	if (offset < 0)

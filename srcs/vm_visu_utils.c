@@ -14,8 +14,6 @@
 
 void                vm_init_visu(t_game *game, t_visu *visu)
 {
-	WINDOW			*raw_;
-	ft_printf("before I die\n");
     initscr();
     noecho();
 	keypad(stdscr, TRUE);
@@ -30,11 +28,11 @@ void                vm_init_visu(t_game *game, t_visu *visu)
 	init_pair(6, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(7, COLOR_BLUE, COLOR_WHITE);
     init_pair(8, COLOR_GREEN, COLOR_WHITE);
-	raw_ = newwin(35, 80, 6, 100);
-	// game->out_win = newwin(35, 80, 6, 15);
- //    game->menu_win = newwin(5, 20, 5, 70);
-	// curs_set(FALSE);
-	//visu_launcher(game, game->visu, 1);
+	visu->raw_win = newwin(35, 80, 6, 100);
+	visu->out_win = newwin(35, 80, 6, 15);
+    visu->menu_win = newwin(5, 20, 5, 70);
+	curs_set(FALSE);
+	visu_launcher(game, game->visu, 1);
 }
 
 void			end_visu(t_visu *visu)

@@ -53,6 +53,7 @@ typedef struct		s_champ
 	int				fd;
 	unsigned int	prog_size;
 	int				col;
+	int 			dis_state;
 	int			id;
 }				t_champ;
 
@@ -125,57 +126,6 @@ typedef struct	s_game
 }				t_game;
 
 
-// typedef struct	s_inst
-// {
-// 	void	*op;
-// 	t_arg	args[MAX_ARGS_NUMBER];
-// }				t_inst;
-
-// typedef	void (*t_inst_func)(t_game *, t_process *, t_inst *);
-
-// typedef struct	s_op
-// {
-// 	t_opcode	opcode;
-// 	int			n_args; //nbr of args
-// 	int			args[MAX_ARGS_NUMBER];
-// 	int			wait;
-// 	int			ocp;
-// 	int			rstrct; //if %mod should be aplied or not, memory restriction
-// 	int			carry; //can modify the carry or not
-// 	int			dir_bytes;
-// 	t_inst_func	function;
-// }				t_op;
-
-
-// t_uc	*decode(t_uc *dump, t_uc *pc, t_inst *inst);
-
-
-// /*
-//  * ocp.c
-//  * */
-// int		decode_ocp(t_uc *addr, t_inst *inst);
-
-// /*
-//  * free.c
-//  * */
-// void	free_game(t_game *game);
-
-// /*
-//  * util.c
-//  * */
-// t_op	*get_op(t_inst *inst);
-// <<<<<<< HEAD
-// =======
-// void	update_logs(t_game *game, char **new, size_t l);
-// void	memcpy_inv(void *dst, void *src, size_t size);
-// void	ft_hexdump(t_uc *dump);
-// >>>>>>> origin/vm
-
-/*
- * lst_util.c
- * */
-//void	del_lstprcs(void *cnt, size_t size);
-
 int                 	dis_source_parser(int fd, char *file, t_game *game);
 int                     dis_catch_error(int flag, char *av);
 int                     dis_file_reader(char *file, t_game *game);
@@ -189,7 +139,7 @@ unsigned int			vm_endian_conversion(unsigned int val);
 */
 void	end_visu(t_visu *visu);
 int		dis_output(t_game *game, int p_num);
-void	visu_launcher(t_game *game, WINDOW *r, WINDOW *o, WINDOW *m, int p_num);
+void	visu_launcher(t_game *game, t_visu *visu, int p_num);
 void    vm_init_visu(t_game *game, t_visu *visu);
 
 #endif

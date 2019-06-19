@@ -47,22 +47,22 @@ static int          dis_init_parser(int ac, char **av, t_game *game)
 	return (1);
 }
 
-static int          dis_init_disa(t_game *game, t_visu *visu)
-{
-    int             nbr_champs;
-    int             index;
-    int             state;
+// static int          dis_init_disa(t_game *game, t_visu *visu)
+// {
+//     int             nbr_champs;
+//     int             index;
+//     int             state;
 
-    nbr_champs = game->nbr_champs;
-    while (nbr_champs > 0)
-    {
-        if (!game->champs[nbr_champs]->dis_state)
-        {
-            if (!dis_multi_utils(game))
-                return (0);
-        }
-    }
-}
+//     nbr_champs = game->nbr_champs;
+//     while (nbr_champs > 0)
+//     {
+//         if (!game->champs[nbr_champs]->dis_state)
+//         {
+//             if (!dis_multi_utils(game))
+//                 return (0);
+//         }
+//     }
+// }
 
 int                 main(int ac, char **av)
 {
@@ -76,7 +76,6 @@ int                 main(int ac, char **av)
 
     if (game.visu_state || game.deb_state)
     {
-        ft_printf("Bingo\n");
         vm_init_visu(&game, game.visu);
         //dis_output(&game, 1);
     }
