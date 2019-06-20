@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 04:18:40 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/14 21:26:26 by lironkei         ###   ########.fr       */
+/*   Updated: 2019/06/19 12:37:51 by lironkei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int                 dis_source_parser(int fd, char *file, t_game *game)
             return (-2);
         if ((lseek(fd, 2192, SEEK_SET)) < 0)
             return (-2);
+        new->fd = fd;
         if (((lseek(fd, 2192, SEEK_SET)) < 0)
                 || (read(fd, str, sizeof(unsigned char) * prog_size)) < 0)
             return (-2);
+        new->raw_dump = str;
         new->prog_size = prog_size;
-        new->instr = str;
         dis_pri_processor(file, play_num, new, game);
         return (1);
     }

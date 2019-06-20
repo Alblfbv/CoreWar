@@ -28,21 +28,24 @@
 # define CLR_RED  "\x1b[31m"
 # define CLR_GREEN  "\x1b[32m"
 # define CLR_YEL  "\x1b[33m"
+# define OPCODE_IS_VALID(x)		(16 > (uint32_t)((x) - 1))
+# define REG_IS_VALID(x)		(REG_NUMBER > (uint32_t)((x) - 1))
 typedef	unsigned long long	t_ull;
-typedef	unsigned char	t_uc;
+typedef	uint32_t			t_uc;
+typedef uint8_t 			t_din;
 typedef	uint8_t				t_reg_type;
 typedef uint16_t			t_ind_type;
-typedef uint32_t			t_dir_type;
 typedef	uint8_t				t_ocp;
 
-typedef struct	s_file
+typedef struct		s_file
 {
-	char	name[PROG_NAME_LENGTH + 1];
-	char	comment[COMMENT_LENGTH + 1];
-	unsigned char	*instr;
+	char			name[PROG_NAME_LENGTH + 1];
+	char			comment[COMMENT_LENGTH + 1];
+	unsigned char	*raw_dump;
+	int 			fd;
 	unsigned int	prog_size;
-	char		*file_name;
-}				t_file;
+	char			*file_name;
+}					t_file;
 
 typedef struct		s_champ
 {
@@ -58,58 +61,67 @@ typedef struct		s_champ
 }				t_champ;
 
 
-typedef struct	s_process
-{
-	int			c_id;
-	int			p_id; // this might be useless
-	t_dir_type	regs[REG_NUMBER];
-	int			wait_c;
-	int			is_alive;
-	t_uc		*pc;
-	int			carry;
-}				t_process;
+//disassembler structs
 
-typedef enum	e_argtype
+typedef struct		s_instr_dec
 {
-	// if we want to represent this by 3 bit, change to defined T_DIR/T_IND/T_REG
-	e_reg = T_REG,
-	e_dir = T_DIR,
-	e_ind = T_IND,
-}				t_argtype;
+	t_arg_type		type;
+	t_uc			data_dump; //date dump
+	size_t			size;
+}					t_instr_dec;
 
-typedef union	u_argval
+typedef struct		s_single_instr
 {
-	t_reg_type	u_reg_val;
-	t_ind_type	u_ind_val;
-	t_dir_type	u_dir_val;
-}				t_argval;
+	t_op			*op;
+	t_ocp			*new_pc;
+	t_instr_dec		args[4];
+}					t_single_instr;
 
-typedef enum	e_opcode
-{
-	e_err,
-	e_live,
-	e_ld,
-	e_st,
-	e_add,
-	e_sub,
-	e_and,
-	e_or,
-	e_xor,
-	e_zjmp,
-	e_ldi,
-	e_sti,
-	e_fork,
-	e_lld,
-	e_lldi,
-	e_lfork,
-	e_aff,
-}				t_opcode;
 
-typedef struct	s_arg
+typedef struct		s_label
 {
-	t_argtype	type;
-	t_argval	value;
-}				t_arg;	
+	int				name;
+	t_uc			pos; //byte_pos
+	t_list			list;
+}					t_label;
+
+/*
+ * Label container_of
+ */
+# define C_LABEL(it)	CONTAINEROF(it, t_label, list)
+
+/*
+ * brief	Instruction structure
+ * 
+ * param	byte_pos	Position of the instruction in the file.cor (without header)
+ * param	instr		Instruction (common/instruction.h)
+ * param	label_ref	instr->args[i] label reference
+ * param	list		list_node
+ */
+typedef struct			s_instr_node
+{
+	t_uc				pos; //byte_pos
+	t_single_instr		*instr;
+	t_label				*label_ref[3];
+	t_list				list;
+}						t_instr_node;
+
+typedef struct		s_op
+{
+	char			*name;
+	int				nb_args;
+	t_arg_type		arg_types[MAX_ARGS_NUMBER];
+	int				numero;
+	int				nb_cycles;
+	char			*description;
+	int				param_byte;
+	int				has_index;
+}					t_op;
+
+
+
+//end of disassembler structs
+
 
 typedef struct	s_game
 {
