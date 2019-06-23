@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 04:19:07 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/07 04:20:04 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/23 18:49:21 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static char const	*g_usage[] =
 {
-	"Usage:./disassembly -debug <champion1.cor> <...>",
+	"Usage:./disassembly [-debug] [-v] <champion1.cor> <...>",
 	"### CONTESTANT ######################################################",
 	"your_champion.cor: Champion compiled with the asm",
 	"### TEXT OUTPUT MODE ################################################",
-    "-debug:            Start in debug mode",
+    "-debug:            Text Debug Mode",
+	"-v:				Ncurses Visualizer Mode"
 	"#####################################################################"
 };
 

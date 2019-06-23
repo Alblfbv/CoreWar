@@ -6,7 +6,7 @@
 #    By: mndhlovu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/13 20:42:30 by mndhlovu          #+#    #+#              #
-#    Updated: 2019/05/30 11:55:06 by mndhlovu         ###   ########.fr        #
+#    Updated: 2019/06/23 18:19:04 by mndhlovu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ INCDIR = includes \
 		 libft/includes
 
 SRC = dis_error_utils.c vm_visu_utils.c vm_visu_output.c\
-	  main.c dis_parser_utils.c dis_source_parser.c \
+	  main.c dis_parser_utils.c dis_source_parser.c dis_multi_utils.c\
+	  decode.c dis_decode_utils.c dis_visu_extr.c
 
 OBJ = $(SRC:.c=.o)
 

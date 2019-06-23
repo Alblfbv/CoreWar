@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void                vm_init_visu(t_game *game, t_visu *visu)
+void                vm_init_visu(t_game *game, t_visu *visu, int pl_num)
 {
     initscr();
     noecho();
@@ -24,15 +24,16 @@ void                vm_init_visu(t_game *game, t_visu *visu)
 	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(3, COLOR_CYAN, COLOR_BLACK);
 	init_pair(4, COLOR_GREEN, COLOR_BLACK);
-	init_pair(5, COLOR_WHITE, COLOR_BLACK);
+	init_pair(5, COLOR_WHITE, COLOR_WHITE);
 	init_pair(6, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(7, COLOR_BLUE, COLOR_WHITE);
     init_pair(8, COLOR_GREEN, COLOR_WHITE);
-	visu->raw_win = newwin(35, 80, 6, 100);
-	visu->out_win = newwin(35, 80, 6, 15);
-    visu->menu_win = newwin(5, 20, 5, 70);
+	init_pair(9, COLOR_WHITE, COLOR_BLACK);
+	visu->raw_win = newwin(CHAMP_MAX_SIZE / 64 + 6, 64 * 3 + 9, 0, 0);
+	visu->out_win = newwin(game->length + 8, 64 * 3 + 9, 12, 0);
+	visu->menu_win = newwin(CHAMP_MAX_SIZE / 64 + 3, 100, 0, 64 * 3 + 9);
 	curs_set(FALSE);
-	visu_launcher(game, game->visu, 1);
+	visu_launcher(game, game->visu, pl_num);
 }
 
 void			end_visu(t_visu *visu)
@@ -43,29 +44,26 @@ void			end_visu(t_visu *visu)
 	endwin();
 }
 
-static int		restart_all(t_game *game, int p_num)
+static void		restart_all(t_game *game, int p_num)
 {
 	end_visu(game->visu);
-	vm_init_visu(game, game->visu);
-	p_num = 1;
-	return (1);
+	ft_bzero(&(game->memdump[0]), CHAMP_MAX_SIZE * sizeof(t_uc));
+	vm_init_visu(game, game->visu, p_num);
 }
 
 int			   dis_output(t_game *game, int p_num)
 {
-	// int			c;
+	int			c;
 
-	// c = getch();
-	// if (c == 32)
-	// {
-	// 	// p_num = (p_num) ? 0 : 1;
-	// 	game->pause = 0;
-	// }
-	// else if (c == KEY_ENTER)
-	// 	return (0);
-	// else if (c == KEY_RESIZE)
-	// 	return (restart_all(game, p_num));
-	ft_printf("bingo man\n");
-	visu_launcher(game, game->visu, p_num);
+	if (c == KEY_RIGHT)
+	{
+		p_num = vm_load_player(game);
+		if (!dis_multi_util(game, p_num))
+			return (dis_catch_error(-2, NULL));
+		dis_sub_handler(game, p_num);
+		restart_all(game, p_num);
+	}
+	vm_init_visu(game, game->visu, p_num);
+	c = getch();
 	return (1);
 }

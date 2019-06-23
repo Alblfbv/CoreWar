@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 04:56:12 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/14 18:45:25 by lironkei         ###   ########.fr       */
+/*   Updated: 2019/06/23 18:49:32 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int              dis_is_vfile(char *str)
 {
-    char                *tmp;  
-
     if (ft_strlen(str) > 4)
     {
         if(ft_strstr(str, ".cor"))
@@ -30,6 +28,49 @@ unsigned int			vm_endian_conversion(unsigned int value)
 			| ((value<<8) & 0xff0000)
 			| ((value>>8) & 0xff00)
 			| ((value<<24) & 0xff000000));
+}
+
+int                     vm_check_endianness(int value)
+{
+    char                *str;
+
+    str = (char *) &value;
+    return ((*str == 1) ? 1 : 0);
+}
+
+int16_t                 vm_endian_convert_16(int16_t val)
+{
+    return ((val << 8) | ((val >> 8) & 0xff));
+}
+
+int32_t                 vm_endian_convert_32(int32_t val)
+{
+    val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF ); 
+    return (val << 16) | ((val >> 16) & 0xFFFF);
+}
+
+int                     vm_load_player(t_game *game)
+{
+    int             nbr_champs;
+    int             index;
+    int             fd;
+    int             state;
+
+    nbr_champs = game->nbr_champs;
+    index = 0;
+    while (index < nbr_champs)
+    {
+        if (!game->file[index]->dis_state)
+        {
+            fd = game->file[index]->fd;
+            if (lseek(fd, 2192, SEEK_SET) < 0 
+                || read(fd, &(game->memdump[0]), game->file[index]->prog_size) < 0)
+                return (-1);
+            return (index);
+        }
+        index++;
+    }
+    return (-1);
 }
 
 int                     dis_file_reader(char *file, t_game *game)

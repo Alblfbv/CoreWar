@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 04:18:40 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/19 12:37:51 by lironkei         ###   ########.fr       */
+/*   Updated: 2019/06/20 07:07:39 by mndhlovu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ static int          dis_verify_magic(int fd, unsigned int *magic)
 }
 
 static void          dis_pri_processor(char *file, int pv_number
-                , t_champ *champ, t_game *game)
+                , t_file *champ, t_game *game)
 {
     champ->file_name = file;
+    champ->instr_nodes = NULL;
+    champ->dis_state = 0;
     champ->col = pv_number;
-    game->champs[pv_number] = champ;
+    game->file[pv_number] = champ;
+    (game->pv_number)++;
     (game->nbr_champs)++;
 }
 
@@ -37,12 +40,12 @@ int                 dis_source_parser(int fd, char *file, t_game *game)
     unsigned char   *str;
     unsigned int	prog_size;
     int             play_num;
-    t_champ         *new;
+    t_file          *new;
 
     play_num = game->pv_number;
     if (play_num < MAX_PLAYERS && (play_num + 1 < MAX_PLAYERS))
     {
-        if (!(new = (t_champ *)malloc(sizeof(t_champ))))
+        if (!(new = (t_file *)malloc(sizeof(t_file))))
             return (-2);
         if (!(fd = dis_verify_magic(fd, &magic)))
             return (-1);
@@ -56,8 +59,6 @@ int                 dis_source_parser(int fd, char *file, t_game *game)
         if ((read(fd, new->comment, sizeof(unsigned char) * COMMENT_LENGTH)) < 0)
             return (-2);
         if (!(str = (unsigned char *)malloc(sizeof(unsigned char *) * prog_size)))
-            return (-2);
-        if ((lseek(fd, 2192, SEEK_SET)) < 0)
             return (-2);
         new->fd = fd;
         if (((lseek(fd, 2192, SEEK_SET)) < 0)
