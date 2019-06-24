@@ -6,7 +6,7 @@
 #    By: mndhlovu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 16:48:32 by mndhlovu          #+#    #+#              #
-#    Updated: 2019/03/25 17:00:53 by mndhlovu         ###   ########.fr        #
+#    Updated: 2019/06/24 07:50:36 by mndhlovu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,15 @@ SRC = list_utils/ft_lstadd.c list_utils/ft_lstdel.c list_utils/ft_lstdelone.c \
 	  ft_printf/ft_type_o_cap.c ft_printf/ft_type_o.c ft_printf/ft_type_p.c \
 	  ft_printf/ft_type_perc.c ft_printf/ft_type_s.c ft_printf/ft_type_u_cap.c \
 	  ft_printf/ft_type_xux.c ft_printf/ft_write_utils.c \
+	  \
+	  ft_dprintf/ft_dbase_utils.c ft_dprintf/ft_dfloat_handlers.c ft_dprintf/ft_dgen_utils.c \
+	  ft_dprintf/ft_dhandlers.c ft_dprintf/ft_dm_handler_util.c ft_dprintf/ft_dnbr_utils.c \
+	  ft_dprintf/ft_dpadding_utils.c ft_dprintf/ft_dprintf.c ft_dprintf/ft_dputnbr_mod.c \
+	  ft_dprintf/ft_dputnbr_utils.c ft_dprintf/ft_dtype_dec.c \
+	  ft_dprintf/ft_dtype_f.c ft_dprintf/ft_dtype_d_cap.c ft_dprintf/ft_dtype_char.c \
+	  ft_dprintf/ft_dtype_o_cap.c ft_dprintf/ft_dtype_o.c ft_dprintf/ft_dtype_p.c \
+	  ft_dprintf/ft_dtype_perc.c ft_dprintf/ft_dtype_s.c ft_dprintf/ft_dtype_u_cap.c \
+	  ft_dprintf/ft_dtype_xux.c ft_dprintf/ft_dwrite_utils.c \
 
 OBJ		=	$(SRC:.c=.o)
 

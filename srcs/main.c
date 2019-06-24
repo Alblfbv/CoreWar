@@ -97,7 +97,6 @@ int                 main(int ac, char **av)
         if (!dis_multi_util(&game, pl_num))
             return (dis_catch_error(-2, NULL));
         dis_sub_handler(&game, pl_num);
-        //vm_init_visu(&game, game.visu, pl_num);
         dis_output(&game, pl_num);
     }
     end_visu(game.visu);

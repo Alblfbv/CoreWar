@@ -60,9 +60,13 @@ int	            vm_get_instr(t_game *game, t_instr_node *node)
 		else
             str = ft_strcat(str, ft_itoa(node->instr->args[index].data_dump));
 		if (index + 1 == node->instr->op->nb_args)
+        {
+            str = ft_strcat(str, "\t\t#");
+            str = ft_strcat(str, node->instr->op->description);
             str = ft_strcat(str, "\n");
+        }
         else
-            str = ft_strcat(str, ", ");        
+            str = ft_strcat(str, ", ");
 	}
     vm_append_str_instr(game, str);
     return (1);
