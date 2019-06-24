@@ -42,7 +42,7 @@ int	            vm_get_instr(t_game *game, t_instr_node *node)
 	index = -1;
     if (!(str = ft_strnew(256)))
         return (0);
-    str = ft_strcat(str, "\t");
+    str = ft_strcat(str, "\t\t");
     str = ft_strcat(str, node->instr->op->name);
     str = ft_strcat(str, "\t");
 	while (++index < node->instr->op->nb_args)

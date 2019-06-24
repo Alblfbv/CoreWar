@@ -15,7 +15,8 @@
 void                vm_init_visu(t_game *game, t_visu *visu, int pl_num)
 {
     initscr();
-    noecho();
+	cbreak();
+	noecho();
 	keypad(stdscr, TRUE);
     start_color();
     init_color(COLOR_WHITE, 220, 220, 220);
@@ -47,23 +48,42 @@ void			end_visu(t_visu *visu)
 static void		restart_all(t_game *game, int p_num)
 {
 	end_visu(game->visu);
-	ft_bzero(&(game->memdump[0]), CHAMP_MAX_SIZE * sizeof(t_uc));
 	vm_init_visu(game, game->visu, p_num);
 }
 
-int			   dis_output(t_game *game, int p_num)
+int			   dis_output(t_game *game, int p_num, int *flag)
 {
 	int			c;
 
+	c = getch();
 	if (c == KEY_RIGHT)
 	{
+		ft_bzero(&(game->memdump[0]), CHAMP_MAX_SIZE * sizeof(t_uc));
 		p_num = vm_load_player(game);
+		if (p_num == -1)
+        {
+			*flag = 0;
+            end_visu(game->visu);
+            return (0);
+        }
+		game->length = 0;
 		if (!dis_multi_util(game, p_num))
 			return (dis_catch_error(-2, NULL));
 		dis_sub_handler(game, p_num);
+		if (!(dis_write_output(game, p_num)))
+		{
+			*flag = 0;
+            end_visu(game->visu);
+            return (0);
+		}
 		restart_all(game, p_num);
 	}
+	if (!(dis_write_output(game, p_num)))
+	{
+		*flag = 0;
+		end_visu(game->visu);
+		return (0);
+	}
 	vm_init_visu(game, game->visu, p_num);
-	c = getch();
 	return (1);
 }

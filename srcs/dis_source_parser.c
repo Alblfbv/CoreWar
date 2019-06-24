@@ -25,6 +25,17 @@ static int          dis_verify_magic(int fd, unsigned int *magic)
 static void          dis_pri_processor(char *file, int pv_number
                 , t_file *champ, t_game *game)
 {
+    char            *tmp;
+    char            *str;
+
+    tmp = ft_strndup(file, ft_strlen(file) - 4);
+    if (!(str = ft_strjoin(tmp, ".s")))
+	{
+		ft_strdel(&tmp);
+		return ;
+	}
+	ft_strdel(&tmp);
+    champ->output_file = str;
     champ->file_name = file;
     champ->instr_nodes = NULL;
     champ->dis_state = 0;

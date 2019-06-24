@@ -36,7 +36,7 @@ int                     dis_catch_error(int flag, char *av)
     }
     else if (flag == IO_ERROR)
     {
-        ft_printf("%sCannot read file %s\n", CLR_RED, av);
+        ft_printf("%sInput or Output error on file %s\n", CLR_RED, av);
         return (0);
     }
     else if (flag == OPT_ERROR)

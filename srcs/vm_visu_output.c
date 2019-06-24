@@ -20,8 +20,8 @@ static void            dis_menu(t_game *game, t_visu *wind, int p_num)
     wattron(wind->menu_win, (COLOR_PAIR(8)));
     mvwprintw(wind->menu_win, 3, 2, "FILE ID %d, Size %d bytes\n", p_num, game->file[p_num]->prog_size);
 	mvwprintw(wind->menu_win, 4, 2, "Input File Name: %s\n", game->file[p_num]->file_name);
-	mvwprintw(wind->menu_win, 5, 2, "Output File Name: %s\n", game->file[p_num]->file_name);
-	mvwprintw(wind->menu_win, 6, 2, "Number of Players waiting to decode: %d\n", game->nbr_champs - 1);
+	mvwprintw(wind->menu_win, 5, 2, "Output File Name: %s\n", game->file[p_num]->output_file);
+	mvwprintw(wind->menu_win, 6, 2, "Number of Players waiting to decode: %d\n", (game->nbr_champs - p_num) - 1);
 	mvwprintw(wind->menu_win, 8, 20, "CLICK SPACE BAR TO EXIT OR N TO DISASSAMBLEY THE NEXT PLAYER");
 	mvwprintw(wind->menu_win, 10, 25, "mndhlovu, mnishimo, sunakim, allefebv");
 	wattroff(wind->menu_win, (COLOR_PAIR(8)));

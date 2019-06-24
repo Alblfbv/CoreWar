@@ -39,8 +39,8 @@ void                    dis_debug(t_game *game, int p_num)
     if (!(inst = game->store))
         return ;
     ft_printf("%sSTART OF PLAYER FILE: %s\n",CLR_RED, game->file[p_num]->file_name);
-    ft_printf(".name: %s\n", game->file[p_num]->name);
-    ft_printf(".comment: %s\n", game->file[p_num]->comment);
+    ft_printf(".name:\t\t\"%s\"\n", game->file[p_num]->name);
+    ft_printf(".comment:\t\"%s\"\n\n", game->file[p_num]->comment);
     while (inst)
     {
         ft_printf("%s%s",CLR_GREEN, inst->instr);

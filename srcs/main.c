@@ -51,53 +51,54 @@ static int          dis_init_parser(int ac, char **av, t_game *game)
 	return (1);
 }
 
-void                    dis_sub_handler(t_game *game, int p_num)
+static int          dis_extras(t_game *game)
 {
-    t_instr_node      *node;
-    int                index;
-
-    node = game->file[p_num]->instr_nodes;
-    index = 0;
-    if (node != NULL)
-    {
-        while (node)
-        {
-            vm_get_instr(game, node);
-            node = node->next;
-            index++;
-        }
-    }
-    game->file[p_num]->dis_state = 1;
+    int             pl_num;
+    pl_num = vm_load_player(game);
+    if (pl_num == -1)
+        return (-1);
+    if (!dis_multi_util(game, pl_num))
+        return (dis_catch_error(-2, NULL));
+    dis_sub_handler(game, pl_num);
+    return (pl_num);
 }
 
 int                 main(int ac, char **av)
 {
     t_game          game;
     int             pl_num;
+    int             flag;
 
+    flag = 1;
     if (ac < 2)
         return (dis_catch_error(US_ERROR, NULL));
     dis_init_state(&game);
     if (!dis_init_parser(ac, av, &game))
         return (0);
+    if (!game.deb_state && !game.visu_state)
+    {
+        while ((pl_num = dis_extras(&game)) != -1)
+            if (!(dis_write_output(&game, pl_num)))
+                return (0);
+    }
     if (game.deb_state && !game.visu_state)
     {
         ft_printf("\t\tDEBUG MODE\t\t\n");
-        while ((pl_num = vm_load_player(&game)) != -1)
+        while ((pl_num = dis_extras(&game)) != -1)
         {
-            if (!dis_multi_util(&game, pl_num))
-                return (dis_catch_error(-2, NULL));
-            dis_sub_handler(&game, pl_num);
+            if (!(dis_write_output(&game, pl_num)))
+                return (0);
             dis_debug(&game, pl_num);
         }
     }
     if (game.visu_state && !game.deb_state)
     {
-        pl_num = vm_load_player(&game);
-        if (!dis_multi_util(&game, pl_num))
-            return (dis_catch_error(-2, NULL));
-        dis_sub_handler(&game, pl_num);
-        dis_output(&game, pl_num);
+        pl_num = dis_extras(&game);
+        if (pl_num != -1)
+        {
+            while (flag)
+                dis_output(&game, pl_num, &flag);
+        }  
     }
     end_visu(game.visu);
     return (0);

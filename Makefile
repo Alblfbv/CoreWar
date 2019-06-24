@@ -20,7 +20,7 @@ INCDIR = includes \
 
 SRC = dis_error_utils.c vm_visu_utils.c vm_visu_output.c\
 	  main.c dis_parser_utils.c dis_source_parser.c dis_multi_utils.c\
-	  decode.c dis_decode_utils.c dis_visu_extr.c
+	  decode.c dis_decode_utils.c dis_visu_extr.c dis_gen_utils.c
 
 OBJ = $(SRC:.c=.o)
 

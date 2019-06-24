@@ -18,6 +18,7 @@
 # include <string.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
+# include "ft_dprintf.h"
 
 typedef struct			s_list
 {
@@ -47,6 +48,7 @@ char					*ft_strstr(const char *str, const char *to_find);
 char					*ft_strnstr(const char *s1, const char *s2, size_t len);
 int						ft_strcmp(const char *s1, const char *s2);
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
+char					*ft_strndup(const char *s1, size_t n);
 int						ft_isdigit(int c);
 int						ft_isalpha(int c);
 int						ft_isalnum(int c);

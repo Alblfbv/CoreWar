@@ -81,6 +81,7 @@ typedef struct			s_file
 	int 				fd;
 	unsigned int		prog_size;
 	char				*file_name;
+	char				*output_file;
 }						t_file;
 
 typedef struct 			s_inst_store
@@ -113,6 +114,7 @@ int                     vm_check_endianness(int value);
 void                    dis_print_node(t_visu *win, t_game *game);
 t_single_instr			*dis_decode_handler(t_ocp *pc);
 void                    dis_sub_handler(t_game *game, int p_num);
+int			            dis_write_output(t_game *game, int p_num);
 int                     vm_load_player(t_game *game);
 void                    dis_debug(t_game *game, int p_num);
 int                     dis_file_reader(char *file, t_game *game);
@@ -125,7 +127,7 @@ unsigned int			vm_endian_conversion(unsigned int val);
  * visu
 */
 void	end_visu(t_visu *visu);
-int		dis_output(t_game *game, int p_num);
+int		dis_output(t_game *game, int p_num, int *flag);
 void	visu_launcher(t_game *game, t_visu *visu, int p_num);
 void    vm_init_visu(t_game *game, t_visu *visu, int pl_num);
 

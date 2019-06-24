@@ -12,7 +12,7 @@
 
 #include "ft_dprintf.h"
 
-t_dtypes					g_types[FT_NUM] = {
+t_dtypes					g_dtypes[FT_NUM] = {
 	{'c', ft_type_char}, {'%', ft_type_perc},
 	{'s', ft_type_s}, {'i', ft_type_dec}, {'d', ft_type_dec},
 	{'x', ft_type_x}, {'X', ft_type_x_cap}, {'o', ft_type_o},
@@ -41,11 +41,11 @@ static int				ft_dpass_to_type(char **str, va_list list,
 	index = 0;
 	while (index < FT_NUM)
 	{
-		if (**str == g_types[index].symbol)
+		if (**str == g_dtypes[index].symbol)
 		{
 			*str += 1;
-			flags->type = g_types[index].symbol;
-			return (g_types[index].f(list, flags));
+			flags->type = g_dtypes[index].symbol;
+			return (g_dtypes[index].f(list, flags));
 		}
 		index++;
 	}
