@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 08:29:22 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/24 08:29:35 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:08:43 by lironkei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int			            dis_write_output(t_game *game, int p_num)
 	if ((fd = open(game->file[p_num]->output_file
                 , O_CREAT | O_WRONLY | O_TRUNC, 0644)) < 0)
         return (dis_catch_error(IO_ERROR, game->file[p_num]->output_file));
-	ft_dprintf(fd, ".name:\t\t\"%s\"\n", game->file[p_num]->name);
-    ft_dprintf(fd, ".comment:\t\"%s\"\n\n", game->file[p_num]->comment);
+	ft_dprintf(fd, ".name\t\t\"%s\"\n", game->file[p_num]->name);
+    ft_dprintf(fd, ".comment\t\"%s\"\n\n", game->file[p_num]->comment);
     while (inst)
     {
         ft_dprintf(fd, "%s", inst->instr);
@@ -51,6 +51,6 @@ int			            dis_write_output(t_game *game, int p_num)
     }
     if ((fd = close(fd)) < 0)
         return (dis_catch_error(IO_ERROR, game->file[p_num]->output_file));
-    // ft_printf("%s File successfully created\n", game->file[p_num]->output_file);
+    ft_printf("%s File successfully created\n", game->file[p_num]->output_file);
 	return (1);
 }

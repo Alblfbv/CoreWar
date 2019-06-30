@@ -6,7 +6,7 @@
 /*   By: mnishimo <mnishimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 18:06:40 by mnishimo          #+#    #+#             */
-/*   Updated: 2019/06/23 18:49:06 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:10:39 by lironkei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_op    g_op_tab[17] =
 {
 	{0, 0, {0}, 0, 0, 0, 0, 0},
-	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
+	{"live", 1, {T_DIR}, 1, 10, "alive call", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
 	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0},
 	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0},
@@ -60,7 +60,7 @@ static int32_t		dis_sub_extract(size_t bytes, t_ocp *pc, int endian_mode)
 	return (*(int32_t *)value);
 }
 
-static void				dis_extract_bcode(t_single_instr *instr, t_ocp *pc, t_din *bcode)
+static void             dis_extract_bcode(t_single_instr *instr, t_ocp *pc, t_din *bcode)
 {
 	instr->op = g_op_tab + *pc;
 	if (0 != instr->op->param_byte)

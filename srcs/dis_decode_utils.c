@@ -6,13 +6,13 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 13:04:30 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/23 18:58:30 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/30 21:58:01 by lironkei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void            vm_append_str_instr(t_game *game, char *instr)
+static void             vm_append_str_instr(t_game *game, char *instr)
 {
     t_inst_store        *new;
     t_inst_store        *cur;

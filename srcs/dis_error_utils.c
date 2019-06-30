@@ -6,7 +6,7 @@
 /*   By: mndhlovu <mndhlovu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 04:19:07 by mndhlovu          #+#    #+#             */
-/*   Updated: 2019/06/23 18:49:21 by mndhlovu         ###   ########.fr       */
+/*   Updated: 2019/06/30 22:00:01 by lironkei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char const	*g_usage[] =
 	"your_champion.cor: Champion compiled with the asm",
 	"### TEXT OUTPUT MODE ################################################",
     "-debug:            Text Debug Mode",
-	"-v:				Ncurses Visualizer Mode"
+	"-v:            Ncurses Visualizer Mode",
 	"#####################################################################"
 };
 
