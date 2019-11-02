@@ -19,7 +19,7 @@ corewar is an arena vm, where .cor binary files fights against each other inside
 our champion, infinite_zorkling.
 
 
-#### bornus
+#### bonuses
 assembler error messages  
 vm debug mode  
 vm visualizer  
